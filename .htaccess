@@ -8,25 +8,39 @@ SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
 # les procurations doivent donner le bon contenu
 En-tête ajouter Vary User -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
-< IfModule mod_expires.c>
+< IfModule  mod_expires.c >
  ExpireActive le
  ExpirePar défaut  " access 2 days "
- ExpiresByType image/jpg " access 2 days "
- ExpiresByType image/jpeg " access 2 days "
- ExpiresByType image/webp " access 2 days "
- ExpiresByType image/png " access 2 days "
- ExpiresByType image/gif " access 2 days "
  AddType image/x-icon .ico
  ExpiresByType image/ico " access 2 days "
  ExpiresByType image/icon " access 2 days "
  ExpiresByType image/x-icon " access 2 days "
- ExpiresByType text/css " access 2 days "
- ExpiresByType text/javascript " access 2 days "
  ExpiresByType text/html " access 2 daysh "
  ExpiresByType application/xhtml+xml " access 2 days "
  Application/javascript ExpiresByType A259200
  ExpiresByType application/x-javascript " access 2 days "
- ExpiresByType application/x-shockwave-flash " access 2 days "
+ ExpiresByType application/x-shockwave-flash " access 2 days "  
+  ExpiresByType image/jpeg  "accès plus 1 an" 
+  ExpiresByType image/gif  "accès plus 1 an" 
+  ExpiresByType image/png  "accès plus 1 an" 
+  ExpiresByType image/webp  "accès plus 1 an" 
+  ExpiresByType image/svg+xml  "accès plus 1 an" 
+  ExpiresByType image/x-icon  "accès plus 1 an"
+  ExpiresByType video/webm  "access plus 1 an" 
+  ExpiresByType video/mp4  "access plus 1 an" 
+  ExpiresByType video/mpeg  "access plus 1 an"
+  ExpiresByType font/ttf  "accès plus 1 an" 
+  ExpiresByType font/otf  "accès plus 1 an" 
+  ExpiresByType font/woff  "accès plus 1 an" 
+  ExpiresByType font/woff2  "accès plus 1 an" 
+  ExpiresByType application/font-woff  "accès plus 1 an"
+  # CSS, JavaScript 
+  ExpiresByType text/css  "accès plus 1 an" 
+  ExpiresByType text/javascript  "accès plus 1 an" 
+  ExpiresByType application/javascript  "accès plus 1 an"
+  # Autres 
+  ExpiresByType application/pdf  "accès plus 1 an" 
+  ExpiresByType image/vnd.microsoft.icon  "accès plus 1 an" 
 </ IfModule > # END Expire les en-têtes
 # BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
