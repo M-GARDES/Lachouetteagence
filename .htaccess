@@ -1,0 +1,64 @@
+# Pour les navigateurs incompatibles
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+# ne pas mettre en cache si ces fichiers le sont déjà
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
+# les procurations doivent donner le bon contenu
+En-tête ajouter Vary User -Agent env=!dont-vary
+# BEGIN Expire les en-têtes
+< IfModule mod_expires.c>
+ ExpireActive le
+ ExpirePar défaut  " access 2 days "
+ ExpiresByType image/jpg " access 2 days "
+ ExpiresByType image/jpeg " access 2 days "
+ ExpiresByType image/webp " access 2 days "
+ ExpiresByType image/png " access 2 days "
+ ExpiresByType image/gif " access 2 days "
+ AddType image/x-icon .ico
+ ExpiresByType image/ico " access 2 days "
+ ExpiresByType image/icon " access 2 days "
+ ExpiresByType image/x-icon " access 2 days "
+ ExpiresByType text/css " access 2 days "
+ ExpiresByType text/javascript " access 2 days "
+ ExpiresByType text/html " access 2 daysh "
+ ExpiresByType application/xhtml+xml " access 2 days "
+ Application/javascript ExpiresByType A259200
+ ExpiresByType application/x-javascript " access 2 days "
+ ExpiresByType application/x-shockwave-flash " access 2 days "
+</ IfModule > # END Expire les en-têtes
+# BEGIN En-têtes de contrôle de cache
+< IfModule mod_headers.c>
+< FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf)$">
+ Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+</ FilesMatch >
+< FilesMatch "\\.(css)$">
+ Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+</ FilesMatch >
+< FilesMatch "\\.(js)$">
+ Ensemble d'en- tête Cache-Control " max-age=2592000, private "
+</ FilesMatch >
+< filesMatch "\\.(html|htm)$">
+Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+</ filesMatch >
+# Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
+< FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+En - tête non défini Cache-Control
+</ FilesMatch >
+</ IfModule > # END Cache-Control Headers
+# TUEZ-LES ETAGS
+En-tête non défini ETag
+FileETag aucun
+# protéger wpconfig.php
+< fichiers wp-config.php>
+ordre autoriser, refuser
+nier de tout
+</ fichiers >
+# protéger le fichier htaccess
+< fichiers .htaccess>
+ordre autoriser, refuser
+nier de tout
+</ fichiers >
+# protection de la lecture des répertoires
+Options -Indexes
