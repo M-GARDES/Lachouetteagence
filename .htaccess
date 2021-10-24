@@ -33,14 +33,14 @@ En-tête ajouter Vary User -Agent env=!dont-vary
   ExpiresByType font/otf  "accès plus 6 months" 
   ExpiresByType font/woff  "accès plus 6 months" 
   ExpiresByType font/woff2  "accès plus 6 months" 
-  ExpiresByType application/font-woff  "accès plus 1 an"
+  ExpiresByType application/font-woff  "accès plus 6 months"
   # CSS, JavaScript 
-  ExpiresByType text/css  "accès plus 1 an" 
-  ExpiresByType text/javascript  "accès plus 1 an" 
-  ExpiresByType application/javascript  "accès plus 1 an"
+  ExpiresByType text/css  "accès plus 6 months" 
+  ExpiresByType text/javascript  "accès plus 6 months" 
+  ExpiresByType application/javascript  "accès plus 6 months"
   # Autres 
-  ExpiresByType application/pdf  "accès plus 1 an" 
-  ExpiresByType image/vnd.microsoft.icon  "accès plus 1 an" 
+  ExpiresByType application/pdf  "accès plus 6 months" 
+  ExpiresByType image/vnd.microsoft.icon  "accès plus 6 months" 
 </ IfModule > # END Expire les en-têtes
 # BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
