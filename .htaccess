@@ -10,7 +10,7 @@ En-tête ajouter Vary User -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
 < IfModule  mod_expires.c >
  ExpireActive le
- ExpirePar défaut  " access plus 2 days "
+ ExpirePar défaut  " access plus 6 months "
  AddType image/x-icon .ico
  ExpiresByType image/ico " access plus 6 months "
  ExpiresByType image/icon " access plus 6 months "
