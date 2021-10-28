@@ -5,11 +5,11 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 # ne pas mettre en cache si ces fichiers le sont déjà
 SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
-# les procurations doivent donner le bon contenu
-En-tête ajouter Vary User -Agent env=!dont-vary
+# les proxies doivent donner le bon contenu
+header Vary User -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
 < IfModule  mod_expires.c >
- ExpireActive le
+ ExpireActive On
  ExpirePar défaut  " access plus 6 months "
  AddType image/x-icon .ico
  ExpiresByType image/ico " access plus 6 months "
@@ -17,9 +17,10 @@ En-tête ajouter Vary User -Agent env=!dont-vary
  ExpiresByType image/x-icon " access plus 6 months "
  ExpiresByType text/html " access plus 6 months "
  ExpiresByType application/xhtml+xml " access plus 6 months "
- Application/javascript ExpiresByType A259200
+ ExpiresByType application/javascript  A259200
  ExpiresByType application/x-javascript " access plus 6 months "
- ExpiresByType application/x-shockwave-flash " access plus 6 months "  
+ ExpiresByType application/x-shockwave-flash " access plus 6 months "
+  EpiresByType image/jpg "access plus 6 month"
   ExpiresByType image/jpeg  "access plus 6 months" 
   ExpiresByType image/gif  "access plus 6 months" 
   ExpiresByType image/png  "access plus 6 months" 
@@ -41,38 +42,40 @@ En-tête ajouter Vary User -Agent env=!dont-vary
   # Autres 
   ExpiresByType application/pdf  "access plus 6 months" 
   ExpiresByType image/vnd.microsoft.icon  "access plus 6 months" 
-</ IfModule > # END Expire les en-têtes
+</ IfModule > 
+# END Expire les en-têtes
 # BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
 < FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf)$">
- Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+ Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch "\\.(css)$">
- Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+ Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch "\\.(js)$">
- Ensemble d'en- tête Cache-Control " max-age=2592000, private "
+ Header set Cache-Control " max-age=2592000, private "
 </ FilesMatch >
 < filesMatch "\\.(html|htm)$">
-Ensemble d'en- tête Cache-Control " max-age=2592000, public "
+Header set Cache-Control " max-age=2592000, public "
 </ filesMatch >
 # Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
 < FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
-En - tête non défini Cache-Control
+Header unset Cache-Control
 </ FilesMatch >
-</ IfModule > # END Cache-Control Headers
+</ IfModule > 
+# END Cache-Control Headers
 # TUEZ-LES ETAGS
-En-tête non défini ETag
-FileETag aucun
+Header unset ETag
+FileETag none
 # protéger wpconfig.php
-< fichiers wp-config.php>
-ordre autoriser, refuser
-nier de tout
-</ fichiers >
+<files wp-config.php>
+order allow,deny
+deny from all
+</files >
 # protéger le fichier htaccess
-< fichiers .htaccess>
-ordre autoriser, refuser
-nier de tout
+<fichiers .htaccess>
+order allow,deny
+deny from all
 </ fichiers >
 # protection de la lecture des répertoires
 Options -Indexes
