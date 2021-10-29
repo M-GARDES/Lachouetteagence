@@ -45,16 +45,16 @@ Application / javascript ExpiresByType A259200
 # BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
 < FilesMatch  " \\.(ico|jpe?g|png|gif|swf|gz|ttf)$ " >
- Ensemble d'en- tête Cache-Control " max-age=31536000, public "
+ Ensemble d'en- tête Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch  " \\.(css)$ " >
- Ensemble d'en- tête Cache-Control " max-age=31536000, public "
+ Ensemble d'en- tête Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch  " \\.(js)$ " >
- Ensemble d'en- tête Cache-Control " max-age=31536000, private "
+ Ensemble d'en- tête Cache-Control " max-age=2592000, private "
 </ FilesMatch >
 < filesMatch " \\.(html|htm)$ " >
-Ensemble d'en- tête Cache-Control " max-age=31536000, public "
+Ensemble d'en- tête Cache-Control " max-age=2592000, public "
 </ filesMatch >
 # Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
 < FilesMatch  " \.(pl|php|cgi|spl|scgi|fcgi)$ " >
