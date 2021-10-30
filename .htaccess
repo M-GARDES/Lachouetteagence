@@ -9,7 +9,7 @@ BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 # ne pas mettre en cache si ces fichiers le sont déjà
 SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
 # les proxies doivent donner le bon contenu
-Header append Vary User-Agent env=!dont-vary
+En-tête ajouter Vary User -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
 < IfModule  mod_expires.c >
  ExpireActive On
