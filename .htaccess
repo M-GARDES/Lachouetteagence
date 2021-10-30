@@ -8,56 +8,56 @@ SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
 # les procurations doivent donner le bon contenu
 En-tête ajouter Vary Utilisateur -Agent env=!dont-vary
 # COMMENCER Expire les en-têtes
-< IfModule   mod_expires.c >
- ExpireActive le
- ExpirePar défaut   " accès plus 6 mois "
+< IfModule    mod_expires.c >
+ ExpireActive chier
+ExpirePar défaut   " accès plus 6 mois "
  AddType image/x-icon .ico
  ExpiresByType image/ico " accès plus 6 mois "
- ExpiresByType image/icon " accès plus 6 mois "
+ ExpireByType image/icon " accès plus 6 mois "
  ExpiresByType image/x-icon " accès plus 6 mois "
  ExpiresByType text/html " accès plus 6 mois "
  ExpiresByType application/xhtml+xml " accès plus 6 mois "
- Application / javascript ExpiresByType A259200
- Application ExpiresByType /x-javascript " accès plus 6 mois "
+Application / javascript ExpiresByType A259200
+Application ExpiresByType /x-javascript " accès plus 6 mois "
  ExpiresByType application/x-shockwave-flash " accès plus 6 mois "  
-  ExpiresByType image/jpeg   " accès plus 6 mois " 
-  ExpiresByType image/gif   " accès plus 6 mois " 
-  ExpiresByType image/png   " accès plus 6 mois " 
-  ExpiresByType image/webp   " accès plus 6 mois " 
-  ExpiresByType image/svg+xml   " accès plus 6 mois " 
-  ExpiresByType image/x-icon   " accès plus 6 mois "
-  ExpiresByType video/webm   " accès plus 6 mois " 
-  ExpiresByType video/mp4   " accès plus 6 mois " 
-  ExpiresByType video/mpeg   " accès plus 6 mois "
-  ExpiresByType font/ttf   " accès plus 6 mois " 
-  ExpiresByType font/otf   " accès plus 6 mois " 
-  ExpiresByType font/woff   " accès plus 6 mois " 
-  ExpiresByType font/woff2   " accès plus 6 mois " 
+  ExpiresByType image/jpeg    " accès plus 6 mois " 
+  ExpiresByType image/gif    " accès plus 6 mois " 
+  ExpiresByType image/png    " accès plus 6 mois " 
+  ExpiresByType image/webp    " accès plus 6 mois " 
+  ExpireByType image/svg+xml    " accès plus 6 mois " 
+  ExpiresByType image/x-icon    " accès plus 6 mois "
+  ExpiresByType video/webm    " accès plus 6 mois " 
+  ExpiresByType video/mp4    " accès plus 6 mois " 
+  ExpiresByType video/mpeg    " accès plus 6 mois "
+  ExpiresByType font/ttf    " accès plus 6 mois " 
+  ExpiresByType font/otf    " accès plus 6 mois " 
+  ExpiresByType font/woff    " accès plus 6 mois " 
+  ExpiresByType font/woff2    " accès plus 6 mois " 
   ExpiresByType application/font-woff   " accès plus 6 mois "
   # CSS, JavaScript
-  ExpiresByType text/css   " accès plus 6 mois " 
-  ExpiresByType text/javascript   " accès plus 6 mois " 
-  ExpiresByType application/javascript   " accès plus 6 mois "
+  ExpiresByType text/css    " accès plus 6 mois " 
+  ExpiresByType text/javascript    " accès plus 6 mois " 
+  ExpiresByType application/javascript    " accès plus 6 mois "
   # Autres
-  ExpiresByType application/pdf   " accès plus 6 mois " 
-  ExpiresByType image/vnd.microsoft.icon   " accès plus 6 mois " 
+  ExpiresParType application/pdf    " accès plus 6 mois " 
+  ExpiresByType image/vnd.microsoft.icon    " accès plus 6 mois " 
 </ IfModule > # END Expire les en-têtes
 # COMMENCER En-têtes de contrôle de cache
 < IfModule mod_headers.c>
-< FilesMatch  " \\.(ico|jpe?g|png|gif|swf|gz|ttf)$ " >
-Ensemble d'en-tête Cache-Control " max-age=2592000, public "
+< FilesMatch   " \\.(ico|jpe?g|png|gif|swf|gz|ttf)$ " >
+Ensemble d'en-tête Cache-Control " max-age=31536000, public "
 </ FilesMatch >
-< FilesMatch  " \\.(css)$ " >
-Ensemble d'en-tête Cache-Control " max-age=2592000, public "
+< FilesMatch   " \\.(css)$ " >
+Ensemble d'en-tête Cache-Control " max-age=31536000, public "
 </ FilesMatch >
-< FilesMatch  " \\.(js)$ " >
-Ensemble d'en-tête Cache-Control " max-age=2592000, private "
+< FilesMatch   " \\.(js)$ " >
+Ensemble d'en-tête Cache-Control " max-age=31536000, private "
 </ FilesMatch >
 < filesMatch " \\.(html|htm)$ " >
-Ensemble d'en-tête Cache-Control " max-age=2592000, public "
+Ensemble d'en-tête Cache-Control " max-age=31536000, public "
 </ filesMatch >
 # Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
-< FilesMatch  " \.(pl|php|cgi|spl|scgi|fcgi)$ " >
+< FilesMatch   " \.(pl|php|cgi|spl|scgi|fcgi)$ " >
 En - tête non définie
 </ FilesMatch >
 </ IfModule > # END Cache-Control Headers
