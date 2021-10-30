@@ -6,19 +6,19 @@ BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 # ne pas mettre en cache si ces fichiers le sont déjà
 SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
 # les procurations doivent donner le bon contenu
-En-tête ajouter Vary User -Agent env=!dont-vary
+En-tête ajouter Vary Utilisateur -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
 < IfModule   mod_expires.c >
  ExpireActive le
- ExpirePar défaut  " access plus 6 months "
+ ExpirePar défaut  " accès plus 6 mois "
  AddType image/x-icon .ico
  ExpiresByType image/ico " accès plus 6 mois "
  ExpiresByType image/icon " accès plus 6 mois "
  ExpiresByType image/x-icon " accès plus 6 mois "
  ExpiresByType text/html " accès plus 6 mois "
  ExpiresByType application/xhtml+xml " accès plus 6 mois "
-Application / javascript ExpiresByType A259200
- Application ExpiresByType /x-javascript " accès plus 6 mois "
+ Application/javascript ExpiresByType A259200
+ Application ExpiresByType/x-javascript " accès plus 6 mois "
  ExpiresByType application/x-shockwave-flash " accès plus 6 mois "  
   ExpiresByType image/jpeg   " accès plus 6 mois " 
   ExpiresByType image/gif   " accès plus 6 mois " 
@@ -41,8 +41,9 @@ Application / javascript ExpiresByType A259200
   # Autres 
   ExpiresByType application/pdf   " accès plus 6 mois " 
   ExpiresByType image/vnd.microsoft.icon   " accès plus 6 mois " 
-</ IfModule > # END Expire les en-têtes
-# BEGIN En-têtes de contrôle de cache
+</ IfModule >
+# END Expire les en-têtes
+# BEGIN En- têtes de contrôle de cache
 < IfModule mod_headers.c>
 < FilesMatch  " \\.(ico|jpe?g|png|gif|swf|gz|ttf)$ " >
  Ensemble d'en- tête Cache-Control " max-age=2592000, public "
