@@ -6,7 +6,7 @@ BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 # ne pas mettre en cache si ces fichiers le sont déjà
 SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
 # les proxies doivent donner le bon contenu
-En-tête ajouter Vary User -Agent env=!dont-vary
+header Vary User -Agent env=!dont-vary
 # BEGIN Expire les en-têtes
 < IfModule  mod_expires.c >
  ExpireActive On
@@ -50,31 +50,32 @@ En-tête ajouter Vary User -Agent env=!dont-vary
  Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch "\\.(css)$">
-Header set Cache-Control " max-age=2592000, public "
+ Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
 < FilesMatch "\\.(js)$">
-Header set Cache-Control " max-age=2592000, private "
+ Header set Cache-Control " max-age=2592000, private "
 </ FilesMatch >
 < filesMatch "\\.(html|htm)$">
 Header set Cache-Control " max-age=2592000, public "
 </ filesMatch >
 # Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
 < FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
-En - tête non défini Cache-Control
+Header unset Cache-Control
 </ FilesMatch >
-</ IfModule > # END Cache-Control Headers
+</ IfModule > 
+# END Cache-Control Headers
 # TUEZ-LES ETAGS
-En-tête non défini ETag
-FileETag aucun
+Header unset ETag
+FileETag none
 # protéger wpconfig.php
-< fichiers wp-config.php>
-ordre autoriser, refuser
-nier de tout
-</ fichiers >
+<files wp-config.php>
+order allow,deny
+deny from all
+</files >
 # protéger le fichier htaccess
-< fichiers .htaccess>
-ordre autoriser, refuser
-nier de tout
+<fichiers .htaccess>
+order allow,deny
+deny from all
 </ fichiers >
 # protection de la lecture des répertoires
-Options -Index
+Options -Indexes
