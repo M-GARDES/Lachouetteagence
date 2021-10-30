@@ -5,74 +5,77 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
 # ne pas mettre en cache si ces fichiers le sont déjà
 SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip
-# les procurations doivent donner le bon contenu
-En-tête ajouter Vary Utilisateur -Agent env=!dont-vary
-# COMMENCER Expire les en-têtes
-< IfModule    mod_expires.c >
- ExpireActive chier
-ExpirePar défaut   " accès plus 6 mois "
+# les proxies doivent donner le bon contenu
+header Vary User -Agent env=!dont-vary
+# BEGIN Expire les en-têtes
+< IfModule  mod_expires.c >
+ ExpireActive On
+ ExpirePar défaut  " access plus 6 months "
  AddType image/x-icon .ico
- ExpiresByType image/ico " accès plus 6 mois "
- ExpireByType image/icon " accès plus 6 mois "
- ExpiresByType image/x-icon " accès plus 6 mois "
- ExpiresByType text/html " accès plus 6 mois "
- ExpiresByType application/xhtml+xml " accès plus 6 mois "
-Application / javascript ExpiresByType A259200
-Application ExpiresByType /x-javascript " accès plus 6 mois "
- ExpiresByType application/x-shockwave-flash " accès plus 6 mois "  
-  ExpiresByType image/jpeg    " accès plus 6 mois " 
-  ExpiresByType image/gif    " accès plus 6 mois " 
-  ExpiresByType image/png    " accès plus 6 mois " 
-  ExpiresByType image/webp    " accès plus 6 mois " 
-  ExpireByType image/svg+xml    " accès plus 6 mois " 
-  ExpiresByType image/x-icon    " accès plus 6 mois "
-  ExpiresByType video/webm    " accès plus 6 mois " 
-  ExpiresByType video/mp4    " accès plus 6 mois " 
-  ExpiresByType video/mpeg    " accès plus 6 mois "
-  ExpiresByType font/ttf    " accès plus 6 mois " 
-  ExpiresByType font/otf    " accès plus 6 mois " 
-  ExpiresByType font/woff    " accès plus 6 mois " 
-  ExpiresByType font/woff2    " accès plus 6 mois " 
-  ExpiresByType application/font-woff   " accès plus 6 mois "
-  # CSS, JavaScript
-  ExpiresByType text/css    " accès plus 6 mois " 
-  ExpiresByType text/javascript    " accès plus 6 mois " 
-  ExpiresByType application/javascript    " accès plus 6 mois "
-  # Autres
-  ExpiresParType application/pdf    " accès plus 6 mois " 
-  ExpiresByType image/vnd.microsoft.icon    " accès plus 6 mois " 
-</ IfModule > # END Expire les en-têtes
-# COMMENCER En-têtes de contrôle de cache
+ ExpiresByType image/ico " access plus 6 months "
+ ExpiresByType image/icon " access plus 6 months "
+ ExpiresByType image/x-icon " access plus 6 months "
+ ExpiresByType text/html " access plus 6 months "
+ ExpiresByType application/xhtml+xml " access plus 6 months "
+ ExpiresByType application/javascript  A259200
+ ExpiresByType application/x-javascript " access plus 6 months "
+ ExpiresByType application/x-shockwave-flash " access plus 6 months "
+  EpiresByType image/jpg "access plus 6 month"
+  ExpiresByType image/jpeg  "access plus 6 months" 
+  ExpiresByType image/gif  "access plus 6 months" 
+  ExpiresByType image/png  "access plus 6 months" 
+  ExpiresByType image/webp  "access plus 6 months" 
+  ExpiresByType image/svg+xml  "access plus 6 months" 
+  ExpiresByType image/x-icon  "access plus 6 months"
+  ExpiresByType video/webm  "access plus 6 months" 
+  ExpiresByType video/mp4  "access plus 6 months" 
+  ExpiresByType video/mpeg  "access plus 6 months"
+  ExpiresByType font/ttf  "access plus 6 months" 
+  ExpiresByType font/otf  "access plus 6 months" 
+  ExpiresByType font/woff  "access plus 6 months" 
+  ExpiresByType font/woff2  "access plus 6 months" 
+  ExpiresByType application/font-woff  "accès plus 6 months"
+  # CSS, JavaScript 
+  ExpiresByType text/css  "access plus 6 months" 
+  ExpiresByType text/javascript  "access plus 6 months" 
+  ExpiresByType application/javascript  "access plus 6 months"
+  # Autres 
+  ExpiresByType application/pdf  "access plus 6 months" 
+  ExpiresByType image/vnd.microsoft.icon  "access plus 6 months" 
+</ IfModule > 
+# END Expire les en-têtes
+# BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
-< FilesMatch   " \\.(ico|jpe?g|png|gif|swf|gz|ttf)$ " >
-Ensemble d'en-tête Cache-Control " max-age=31536000, public "
+< FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf)$">
+ Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
-< FilesMatch   " \\.(css)$ " >
-Ensemble d'en-tête Cache-Control " max-age=31536000, public "
+< FilesMatch "\\.(css)$">
+ Header set Cache-Control " max-age=2592000, public "
 </ FilesMatch >
-< FilesMatch   " \\.(js)$ " >
-Ensemble d'en-tête Cache-Control " max-age=31536000, private "
+< FilesMatch "\\.(js)$">
+ Header set Cache-Control " max-age=2592000, private "
 </ FilesMatch >
-< filesMatch " \\.(html|htm)$ " >
-Ensemble d'en-tête Cache-Control " max-age=31536000, public "
+< filesMatch "\\.(html|htm)$">
+Header set Cache-Control " max-age=2592000, public "
 </ filesMatch >
 # Désactiver la mise en cache pour les scripts et autres fichiers dynamiques
-< FilesMatch   " \.(pl|php|cgi|spl|scgi|fcgi)$ " >
-En - tête non définie
+< FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+Header unset Cache-Control
 </ FilesMatch >
-</ IfModule > # END Cache-Control Headers
+</ IfModule > 
+# END Cache-Control Headers
 # TUEZ-LES ETAGS
-En-tête non défini ETag
-FileETag aucun
+Header unset ETag
+FileETag none
 # protéger wpconfig.php
-<fichiers wp-config.php>
-ordre autoriser, refuser
-nier de tout
-</fichiers >
+<files wp-config.php>
+order allow,deny
+deny from all
+</files >
 # protéger le fichier htaccess
 <fichiers .htaccess>
-ordre autoriser, refuser
-nier de tout
-</fichiers >
+order allow,deny
+deny from all
+</ fichiers >
 # protection de la lecture des répertoires
-Options -Index
+Options -Indexes
