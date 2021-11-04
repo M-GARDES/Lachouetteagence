@@ -49,8 +49,8 @@ En-tête ajouter Vary User -Agent env=!dont-vary
 # END Expire les en-têtes
 # BEGIN En-têtes de contrôle de cache
 < IfModule mod_headers.c>
-< FilesMatch "\\.(ico|jpe?g|png|gif|swf|gz|ttf)$">
- Header set Cache-Control " max-age=2592000, public "
+< FilesMatch "\\.(ico|jpe?g|png|webp|gif|swf|gz|ttf)$">
+ Header set Cache-Control " max-age=600, public "
 </ FilesMatch >
 < FilesMatch "\\.(css)$">
  Header set Cache-Control " max-age=2592000, public "
